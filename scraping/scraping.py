@@ -14,7 +14,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ==========================================
 # 設定
 # ==========================================
-BASE_LIST_URL = 'https://xd-web.kutc.kansai-u.ac.jp/teacher/2025m2p7b6q9e1/id/index.html'
+BASE_LIST_URL = '' #非公開
 TEST_MODE = False
 TEST_LIMIT = 5
 OUTPUT_CSV = 'thesis_list_cleaned.csv'
@@ -34,9 +34,7 @@ def get_soup(url):
 
 def clean_title(raw_text):
     """
-    抽出された生のテキストから、タイトル部分だけを正規表現で切り出す。
-    例: "情22-0001 青木 綾音 2025 年度 卒業研究 1／2 関大総情のメタバースオープンキャンパスの実装研究 情 22-0001 青木 綾音"
-    → "関大総情のメタバースオープンキャンパスの実装研究"
+    
     """
     if not raw_text:
         return "抽出不可"
@@ -45,16 +43,15 @@ def clean_title(raw_text):
     text = re.sub(r'\s+', ' ', raw_text).strip()
 
     # パターン： 「1／2」や「1 / 2」のようなページ番号表記の後から、
-    # 末尾にある「情22-0001」のような学籍番号らしき文字列の前までを抽出する
+    # 末尾にある学籍番号らしき文字列の前までを抽出する
     
     # 1. 「〇/〇」または「〇／〇」の直後を探す
     match_start = re.search(r'\d\s*[／/]\s*\d\s+(.+)', text)
     if match_start:
         candidate = match_start.group(1)
         
-        # 2. 末尾にある「情 22-0001」や「情22-0001」以降を削る
-        # (?:情|情\s*)\d{2}-\d{4} というパターンで学籍番号を検知
-        candidate = re.split(r'(?:情|情\s*)\d{2}-\d{4}', candidate)[0].strip()
+        # 2. 末尾にある学籍番号以降を削る
+        candidate = re.split(r'[A-Za-z一-龥ぁ-んァ-ヶ]+\s*\d{2}-\d{4}', candidate)[0].strip()
         
         return candidate
     
