@@ -1,8 +1,8 @@
-# Kansai University Graduation Thesis Scraper
+# Thesis Scraper
 
 ## 概要
 
-本プログラムは、関西大学総合情報学部の卒業研究一覧ページを巡回し、各学生の卒業研究PDFから研究タイトルを自動抽出してCSVファイルへ保存するPythonプログラムです。
+本プログラムは、作成者が所属する大学の卒業研究一覧ページを巡回し、各学生の卒業研究PDFから研究タイトルを自動抽出してCSVファイルへ保存するPythonプログラムです。
 
 HTMLスクレイピングとPDF解析を組み合わせることで、卒業研究一覧を効率的に収集できます。
 
@@ -38,7 +38,7 @@ pip install requests beautifulsoup4 pdfplumber urllib3
 # 対象サイト
 
 ```text
-https://xd-web.kutc.kansai-u.ac.jp/teacher/2025m2p7b6q9e1/id/index.html
+非公開
 ```
 
 プログラムはこの一覧ページから各グループページへ移動し、卒業研究PDFを取得します。
@@ -119,17 +119,13 @@ PDF解析には **pdfplumber** を使用しています。
 例
 
 ```text
-情22-0001 青木 綾音
-2025年度 卒業研究
-1／2
-関大総情のメタバースオープンキャンパスの実装研究
-情22-0001
+非公開
 ```
 
 ↓
 
 ```text
-関大総情のメタバースオープンキャンパスの実装研究
+非公開
 ```
 
 ---
